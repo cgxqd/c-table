@@ -25,7 +25,7 @@ yarn add @cgxqd/c-table
 <script>
     import Vue from 'vue';
     import ElementUI from 'element-ui';
-    import CTable from 'c-table'
+    import CTable from '@cgxqd/c-table'
     import 'element-ui/lib/theme-chalk/index.css';
     import App from './App.vue';
 
