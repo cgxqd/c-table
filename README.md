@@ -12,7 +12,10 @@ npm i element-ui
 
 > 安装 c-table:
 ```bash
-npm i c-table
+#npm
+npm i @cgxqd/c-table
+#yarn
+yarn add @cgxqd/c-table
 ```
 
 

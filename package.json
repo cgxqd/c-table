@@ -1,0 +1,26 @@
+{
+  "name": "@cgxqd/c-table",
+  "version": "1.0.1",
+  "description": "基于 `Element-UI` `Table` 组件封装的高阶表格组件，可无缝支持 element 的 table 组件。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cgxqd/c-table.git"
+  },
+  "keywords": [
+    "Vue",
+    "JSX",
+    "elementUI",
+    "c-table",
+    "Ctable"
+  ],
+  "author": "cgxqd",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cgxqd/c-table/issues"
+  },
+  "homepage": "https://github.com/cgxqd/c-table#readme"
+}
