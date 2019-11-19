@@ -331,6 +331,6 @@ yarn add @cgxqd/c-table
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | ---- | ---- | ---- | ---- | ---- |
-| render | 渲染属性 | function,HTMLElement,String,* | - | - |
+| render | 渲染属性 | function(cellValue,{row,column,$index},h),HTMLElement,String,* | - | - |
 | slot | 插槽名 | String | - | - |
 | isShow | 当前列是否显示 | Boolean | - | true |

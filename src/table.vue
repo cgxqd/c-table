@@ -44,10 +44,10 @@
                     else if (!item.slot) {
                         return <el-table-column {...props} {...{
                             scopedSlots: {
-                                default: ({row}) => {
+                                default: ({row,...arg}) => {
                                     let renderEle, retVal
                                     if (item.render) {
-                                        renderEle = typeof (item.render) == 'function' ? (retVal = item.render(row[item.prop], row, h), retVal ? retVal : item.render) : item.render;
+                                        renderEle = typeof (item.render) == 'function' ? (retVal = item.render(row[item.prop], {row,...arg}, h), retVal ? retVal : item.render) : item.render;
                                         return renderEle.constructor.name == 'VNode' ? renderEle :
                                             <span>{renderEle}</span>
                                     } else {
@@ -61,7 +61,7 @@
                     else if (item.slot) {
                         return <el-table-column {...props} {...{
                             scopedSlots: {
-                                default: ({row}) => this.$scopedSlots[item.slot]({row})
+                                default: ({...arg}) => this.$scopedSlots[item.slot]({...arg})
                             }
                         }}></el-table-column>
                     }
