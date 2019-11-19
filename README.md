@@ -227,7 +227,7 @@ yarn add @cgxqd/c-table
                 }
             },
             methods:{
-                filterTime(time,row,h){
+                filterTime(time,{row},h){
                     console.log(time);// 打印时间
                     console.log(row.time);// 打印时间
                     /**时间过滤 */
