@@ -33,8 +33,8 @@ yarn add @cgxqd/c-table
     Vue.use(CTable)
 
     new Vue({
-    el: '#app',
-    render: h => h(App)
+        el: '#app',
+        render: h => h(App)
     });
 </script>
 ```
@@ -301,14 +301,22 @@ yarn add @cgxqd/c-table
         }   
     </script>
 ```
+### c-table Methods
+> 详细使用请参考 [Element Table Methods](https://element.eleme.io/#/zh-CN/component/table#table-methods)
+```html
+    <c-table ref='testRef' />
+    // 调用方法 this.$refs.testRef.clearSelection()
+```
 
 ### c-table Attributes && c-table Events
-> 以下属性为新增属性，其他具体的属性设置可以参考 Element Table Attributes 、Table Events文档
+> 以下属性为新增属性，其他具体的属性设置可以参考 [Element Table Attributes](https://element.eleme.io/#/zh-CN/component/table#table-column-attributes) 、[Table Events](https://element.eleme.io/#/zh-CN/component/table#table-events)文档
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | ---- | ---- | ---- | ---- | ---- |
 | isLoading | 表格组件是否显示loading | Boolean | - | false |
 | align | 配置表格全局table-column的对齐方式 | String | left/center/right | center |
+| tableClassName | 给el-table 设置 className | String/Object/Array | - | - |
+| tableStyle | 给el-table 设置 style | String/Object/Array | - | - |
 | has-pag | 是否启动分页 | Boolean | - | false |
 | init | 触发分页的请求函数 | Function | - | - |
 | layout | 组件布局 子组件用逗号隔开 | String | - | total,sizes,prev,next,jumper |
@@ -318,7 +326,7 @@ yarn add @cgxqd/c-table
 
 
 ### pagination
->具体的属性设置可以参考 Element Pagination 文档
+>具体的属性设置可以参考 [Element Pagination](https://element.eleme.io/#/zh-CN/component/pagination) 文档
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | ---- | ---- | ---- | ---- | ---- |
@@ -327,7 +335,7 @@ yarn add @cgxqd/c-table
 | total | 总条目数 | Number | - | - |
 
 ### config
->config 中每项的配置项其实就是 Element Table-column 上的 props 属性，具体的属性设置可以参考 Element Table-column 文档，以下为新增属性。
+>config 中每项的配置项其实就是 Element Table-column 上的 props 属性，具体的属性设置可以参考 [Element Table-column](https://element.eleme.io/#/zh-CN/component/table#table-column-attributes) 文档，以下为新增属性。
 
 | 参数 | 说明 | 类型 | 可选值 | 默认值 |
 | ---- | ---- | ---- | ---- | ---- |

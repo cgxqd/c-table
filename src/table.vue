@@ -1,8 +1,8 @@
 <script>
     /**
      * 基于 Element-UI Table 组件封装的高阶表格组件，可无缝支持 element 的 table 组件。
-     * 目前Table Attributes、Table Events、Table-column Attributes 完全对齐element-ui。以下为新增或有改动的配置
-     * @author chenganxu
+     * 目前Table Attributes、Table Events、Table Methods、Table-column Attributes 完全对齐element-ui。以下为新增或有改动的配置
+     * @author chenganxu <https://github.com/cgxqd/c-table>
      * @param {Array} data 表格显示数据，对应el-table data属性
      * @param {boolean} isLoading 表格组件是否显示loading 默认false
      * @param {string} align 配置表格全局table-column的对齐方式 ，默认值：'center'
@@ -20,7 +20,7 @@
      * @param {string} layout 组件布局 子组件用逗号隔开
      **/
     export default {
-        name:'CTable',
+        name: 'CTable',
         render(h) {
             /** 将中横杠命名转为驼峰命名 */
             let toUpperCaseKey = (obj, retObj = {}) => (Object.keys(obj).forEach(key => (retObj[/[A-Z]/g.test(key) ? key.replace(/[A-Z]/g, $1 => `-${$1.toLowerCase()}`) : key] = obj[key])), retObj);
@@ -29,6 +29,7 @@
             let renderColumn = (item, index) => {
                 let props;
                 item.align = item.align ? item.align : this.align;
+                item.showTip = false;
                 props = {
                     props: {
                         ...Object.assign({key: index, 'show-overflow-tooltip': item.showTip}, toUpperCaseKey(item))
@@ -44,18 +45,17 @@
                     else if (!item.slot) {
                         return <el-table-column {...props} {...{
                             scopedSlots: {
-                                default: ({row,...arg}) => {
+                                default: ({row, ...arg}) => {
                                     let renderEle, retVal
                                     if (item.render) {
-                                        renderEle = typeof (item.render) == 'function' ? (retVal = item.render(row[item.prop], {row,...arg}, h), retVal ? retVal : item.render) : item.render;
-                                        return renderEle.constructor.name == 'VNode' ? renderEle :
-                                            <span>{renderEle}</span>
+                                        renderEle = typeof (item.render) == 'function' ? (retVal = item.render(row[item.prop], {row, ...arg}, h), retVal ? retVal : item.render) : item.render;
+                                        return renderEle.constructor.name == 'VNode' ? renderEle : h('span', renderEle)
                                     } else {
-                                        return <span>{row[item.prop] || row[item.prop] === 0 ? row[item.prop] : '----'}</span>
+                                        return h('span', row[item.prop] || row[item.prop] === 0 ? row[item.prop] : '----')
                                     }
                                 }
                             }
-                        }}></el-table-column>
+                        }}/>
                     }
                     /** slot情况 */
                     else if (item.slot) {
@@ -63,7 +63,7 @@
                             scopedSlots: {
                                 default: ({...arg}) => this.$scopedSlots[item.slot]({...arg})
                             }
-                        }}></el-table-column>
+                        }} />
                     }
                 }
             };
@@ -78,7 +78,7 @@
                         ...Object.assign({key: index}, toUpperCaseKey(ret))
                     }
                 }
-                return <el-table-column {...props} >{ele}</el-table-column>
+                return h('el-table-column', {...props}, ele)
             }
 
             /** 使用递归实现多级表头 */
@@ -104,6 +104,9 @@
                         props: toUpperCaseKey(this.$attrs),
                         on: toUpperCaseKey(this.$listeners)
                     }}
+                    data={this.data}
+                    tableClassName={this.tableClassName}
+                    tableStyle={this.tableStyle}
                     v-loading={this.isLoading}
                     ref='multipleTable'
                 >{renderTableColumn(this.config)}</el-table>
@@ -115,7 +118,7 @@
                                    layout={this.layout}
                                    on-current-change={this.handleCurrentChange}
                                    on-size-change={this.handleSizeChange}
-                    ></el-pagination>
+                    />
                 </div>}
             </div>
         },
@@ -124,24 +127,44 @@
                 return (isShow) => ((typeof isShow === 'boolean' && !isShow) ? false : true)
             }
         },
+        mounted() {
+            /** 将Table Methods 代理到当前作用域 this 中 */
+            this.proxyMethods()
+        },
         methods: {
+            proxyMethods() {
+                ["clearSelection", "toggleRowSelection", "toggleAllSelection", "toggleRowExpansion", "setCurrentRow", "clearSort", "clearFilter", "doLayout", "sort"]
+                    .forEach(key => this[key] = this.$refs.multipleTable[key])
+            },
             handleSizeChange(val) {
                 this.pagination.pageSize = val
-                this.init()
+                this.init && this.init()
             },
             handleCurrentChange(val) {
                 this.pagination.page = val
-                this.init()
+                this.init && this.init()
             },
         },
         props: {
-            config: Array,
             isLoading: Boolean,
-            pagination: Object,
             hasPag: Boolean,
-            init: {
-                type: Function,
-                default: _ => () => _
+            tableClassName: [String, Array, Object],
+            tableStyle: [String, Array, Object],
+            config: {
+                type: Array,
+                default: _ => []
+            },
+            data: {
+                type: Array,
+                default: _ => []
+            },
+            align: {
+                type: String,
+                default: 'center'
+            },
+            pagination: {
+                type: Object,
+                default: _ => ({})
             },
             pageSizes: {
                 type: Array,
@@ -155,10 +178,7 @@
                     return 'total,sizes,prev,next,jumper'
                 }
             },
-            align: {
-                type: String,
-                default: 'center'
-            }
+            init: Function,
         }
     };
 </script>
