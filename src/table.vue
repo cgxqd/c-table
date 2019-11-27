@@ -29,7 +29,6 @@
             let renderColumn = (item, index) => {
                 let props;
                 item.align = item.align ? item.align : this.align;
-                item.showTip = false;
                 props = {
                     props: {
                         ...Object.assign({key: index, 'show-overflow-tooltip': item.showTip}, toUpperCaseKey(item))
