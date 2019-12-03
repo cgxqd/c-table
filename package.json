@@ -1,6 +1,6 @@
 {
   "name": "@cgxqd/c-table",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "基于 `Element-UI` `Table` 组件封装的高阶表格组件，可无缝支持 element 的 table 组件。",
   "main": "index.js",
   "scripts": {

@@ -48,7 +48,7 @@
                                     let renderEle, retVal
                                     if (item.render) {
                                         renderEle = typeof (item.render) == 'function' ? (retVal = item.render(row[item.prop], {row, ...arg}, h), retVal ? retVal : item.render) : item.render;
-                                        return renderEle.constructor.name == 'VNode' ? renderEle : h('span', renderEle)
+                                        return renderEle.constructor.name == this.$vnode.constructor.name ? renderEle : h('span', renderEle)
                                     } else {
                                         return h('span', row[item.prop] || row[item.prop] === 0 ? row[item.prop] : '----')
                                     }
